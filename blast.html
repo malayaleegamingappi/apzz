@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Happy Birthday Memmii💞</title>
+  <style>
+    :root {
+      --bg1: #ff758c;
+      --bg2: #ff7eb3;
+    }
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      height: 100vh;
+      background: linear-gradient(135deg, var(--bg1), var(--bg2));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      font-family: 'Poppins', sans-serif;
+    }
+    .container {
+      text-align: center;
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(10px);
+      padding: 40px;
+      border-radius: 20px;
+      box-shadow: 0 8px 20px rgba(0, 0, 0, 0.3);
+      position: relative;
+      z-index: 2;
+    }
+    h1 {
+      font-size: 2rem;
+      color: #fff;
+      text-shadow: 0 4px 10px rgba(0,0,0,0.4);
+    }
+    p {
+      color: rgba(255,255,255,0.9);
+      margin: 10px 0 20px;
+    }
+    button {
+      background: linear-gradient(45deg, #ff4081, #ff80ab);
+      color: #fff;
+      padding: 15px 30px;
+      border: none;
+      border-radius: 999px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+      transition: transform 0.2s ease;
+    }
+    button:active { transform: scale(0.95); }
+    .heart {
+      position: absolute;
+      font-size: 20px;
+      opacity: 0;
+      animation: floatUp 10s ease-in forwards;
+      text-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    }
+    @keyframes floatUp {
+      0% { transform: translateY(0) scale(0.6); opacity: 0; }
+      20% { opacity: 1; }
+      80% { opacity: 1; }
+      100% { transform: translateY(-120vh) scale(1.2); opacity: 0; }
+    }
+    audio {
+      display: none;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💖 SURPRISE GIFT 💖</h1>
+    <p>Tap the button!</p>
+    <button id="blastBtn">GIFT 💘</button>
+  </div>
+
+  <audio id="bgMusic" loop>
+    <source src="\song\we fell in love song.mp3" type="audio/mpeg">
+  </audio>
+
+  <script>
+    const blastBtn = document.getElementById('blastBtn');
+    const music = document.getElementById('bgMusic');
+
+    const emojis = ['❤️','💖','💘','💕','💞','❣️','💓','💗','💝'];
+    const HEARTS_PER_BLAST = 880;
+
+    function random(min, max) {
+      return Math.random() * (max - min) + min;
+    }
+
+    function createHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('heart');
+      heart.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+      heart.style.left = random(0, window.innerWidth) + 'px';
+      heart.style.fontSize = random(15, 40) + 'px';
+      heart.style.animationDuration = random(7, 12) + 's';
+      document.body.appendChild(heart);
+
+      setTimeout(() => heart.remove(), 12000);
+    }
+
+    blastBtn.addEventListener('click', () => {
+      if (music.paused) music.play().catch(() => {});
+      for (let i = 0; i < HEARTS_PER_BLAST; i++) {
+        setTimeout(createHeart, i * 80); // slowly releases hearts
+      }
+    });
+  </script>
+</body>
+</html>
